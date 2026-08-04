@@ -37,7 +37,12 @@ const teasePokes = [
   "Click no, I bet you won't 😏"
 ]
 
+// Default date shown on Page 2 / success page (editable by the user on Page 2)
+const DEFAULT_DATE_TEXT = "Saturday, 08th Aug 2026"
+
 let noClickCount = 0, yesTeasedCount = 0, runawayEnabled = false, musicPlaying = true
+let chosenDateText = DEFAULT_DATE_TEXT
+let chosenActivity = null
 
 const catGif = document.getElementById('cat-gif')
 const yesBtn = document.getElementById('yes-btn')
@@ -89,6 +94,8 @@ function showToast(msg) {
   t._timer = setTimeout(() => t.classList.remove('show'), 2800)
 }
 
+// ---------- PAGE 1: Yes/No (unchanged behavior) ----------
+
 function handleYes() {
   if (!runawayEnabled) {
     showToast(teasePokes[Math.min(yesTeasedCount, teasePokes.length - 1)])
@@ -104,13 +111,7 @@ function handleYes() {
 
   setTimeout(() => {
     document.getElementById('main-page').style.display = 'none'
-    document.getElementById('success-page').style.display = 'block'
-    const end = Date.now() + 4000
-    const b = setInterval(() => {
-      if (Date.now() > end) { clearInterval(b); return }
-      confetti({ particleCount: 30, angle: 60,  spread: 50, origin: { x: 0, y: 0.65 } })
-      confetti({ particleCount: 30, angle: 120, spread: 50, origin: { x: 1, y: 0.65 } })
-    }, 350)
+    document.getElementById('date-page').style.display = 'block'
   }, 700)
 }
 
@@ -148,4 +149,73 @@ function runAway() {
   noBtn.style.left = (Math.random() * (window.innerWidth  - noBtn.offsetWidth  - m) + m / 2) + 'px'
   noBtn.style.top  = (Math.random() * (window.innerHeight - noBtn.offsetHeight - m) + m / 2) + 'px'
   noBtn.style.zIndex = '50'
+}
+
+// ---------- PAGE 2: The date ----------
+
+function showDateEditor() {
+  document.getElementById('date-editor').style.display = 'block'
+  document.getElementById('edit-date-link').style.display = 'none'
+}
+
+function saveDate() {
+  const input = document.getElementById('date-input')
+  if (!input.value) return
+
+  // Format the chosen date nicely, e.g. "Saturday, 08th Aug 2026"
+  const d = new Date(input.value + 'T00:00:00')
+  const weekday = d.toLocaleDateString('en-US', { weekday: 'long' })
+  const month = d.toLocaleDateString('en-US', { month: 'short' })
+  const day = d.getDate()
+  const suffix = (day % 10 === 1 && day !== 11) ? 'st'
+               : (day % 10 === 2 && day !== 12) ? 'nd'
+               : (day % 10 === 3 && day !== 13) ? 'rd' : 'th'
+  chosenDateText = `${weekday}, ${String(day).padStart(2, '0')}${suffix} ${month} ${d.getFullYear()}`
+
+  document.getElementById('date-display').textContent = chosenDateText
+  document.getElementById('date-editor').style.display = 'none'
+  document.getElementById('edit-date-link').textContent = 'Change date again? ✏️'
+  document.getElementById('edit-date-link').style.display = 'block'
+}
+
+function goToActivityPage() {
+  document.getElementById('date-page').style.display = 'none'
+  document.getElementById('activity-page').style.display = 'block'
+}
+
+// ---------- PAGE 3: Activity choice ----------
+
+function selectOption(btn) {
+  document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'))
+  btn.classList.add('selected')
+  chosenActivity = btn.dataset.option
+  document.getElementById('activity-next-btn').disabled = false
+}
+
+function goToSuccessPage() {
+  document.getElementById('activity-page').style.display = 'none'
+  document.getElementById('success-page').style.display = 'block'
+
+  // Update the final date badge with whatever date/activity was chosen
+  const activityText = chosenActivity ? ` Let's do: ${chosenActivity} 🎈` : ''
+  document.getElementById('final-date-badge').textContent =
+    `💌 Reserve ${chosenDateText} I have something special planned just for you 🌹${activityText}`
+
+  confetti({ particleCount: 150, spread: 100, origin: { x: 0.5, y: 0.4 }, colors: ['#ff69b4','#ff1493','#ffb3c1','#fff','#ff85a2','#d63384','#ffdf00'] })
+  const end = Date.now() + 4000
+  const b = setInterval(() => {
+    if (Date.now() > end) { clearInterval(b); return }
+    confetti({ particleCount: 30, angle: 60,  spread: 50, origin: { x: 0, y: 0.65 } })
+    confetti({ particleCount: 30, angle: 120, spread: 50, origin: { x: 1, y: 0.65 } })
+  }, 350)
+}
+
+// ---------- PAGE 4: Success page "Know more" reveal ----------
+
+function revealSecretMessage() {
+  const msg = document.getElementById('secret-message')
+  const link = document.getElementById('know-more-link')
+  msg.style.display = 'block'
+  link.style.display = 'none'
+  msg.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
 }
