@@ -10,42 +10,80 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <div class="hearts-bg" id="hearts-bg"></div>
 
-  <!-- MAIN PAGE -->
+  <!-- PAGE 1: MAIN PAGE (unchanged) -->
   <div class="container" id="main-page">
     <h1>Will you go on a date with me? 💕</h1>
     <p class="subtitle" id="subtitle">I already have the perfect day planned... 🌸</p>
-
     <div class="gif-container">
       <img id="cat-gif" src="https://media.tenor.com/EBV7OT7ACfwAAAAj/u-u-qua-qua-u-quaa.gif" alt="cute character">
     </div>
-
     <div class="buttons">
       <button id="yes-btn" onclick="handleYes()">Yes!! 🥰</button>
       <button id="no-btn" onclick="handleNo()">No</button>
     </div>
-
     <div id="tease-toast"></div>
   </div>
 
-  <!-- SUCCESS PAGE -->
+  <!-- PAGE 2: THE DATE -->
+  <div class="container" id="date-page" style="display:none;">
+    <h1>Here's what I was thinking... 💌</h1>
+    <p class="subtitle">Mark your calendar 🌸</p>
+    <div class="date-badge" id="date-display">Saturday, 08th Aug 2026</div>
+
+    <p class="edit-link" id="edit-date-link" onclick="showDateEditor()">Want to pick a different date? ✏️</p>
+
+    <div id="date-editor" style="display:none;">
+      <input type="date" id="date-input" class="date-input">
+      <button class="small-btn" onclick="saveDate()">Save date</button>
+    </div>
+
+    <div class="buttons" style="margin-top:28px;">
+      <button id="date-next-btn" class="next-btn" onclick="goToActivityPage()">Next →</button>
+    </div>
+  </div>
+
+  <!-- PAGE 3: WHAT WOULD YOU LIKE TO DO -->
+  <div class="container" id="activity-page" style="display:none;">
+    <h1>What would you like to do? 🌸</h1>
+    <p class="subtitle">Pick your favorite ✨</p>
+
+    <div class="options-grid" id="options-grid">
+      <button class="option-btn" data-option="Option 1" onclick="selectOption(this)">Option 1</button>
+      <button class="option-btn" data-option="Option 2" onclick="selectOption(this)">Option 2</button>
+      <button class="option-btn" data-option="Option 3" onclick="selectOption(this)">Option 3</button>
+      <button class="option-btn" data-option="Option 4" onclick="selectOption(this)">Option 4</button>
+      <button class="option-btn" data-option="Option 5" onclick="selectOption(this)">Option 5</button>
+      <button class="option-btn" data-option="Option 6" onclick="selectOption(this)">Option 6</button>
+    </div>
+
+    <div class="buttons" style="margin-top:28px;">
+      <button id="activity-next-btn" class="next-btn" onclick="goToSuccessPage()" disabled>Next →</button>
+    </div>
+  </div>
+
+  <!-- PAGE 4: SUCCESS PAGE (unchanged content, plus "Know more" reveal) -->
   <div id="success-page">
     <h1>Knew you'd say yes! 🎉</h1>
     <div class="gif-container">
       <img src="https://media.tenor.com/eNHbizSfVb0AAAAj/lovemode-cute.gif" alt="celebrating" style="width:200px;height:200px;border-radius:14px;object-fit:contain;">
     </div>
     <p class="yes-message">You just made me the happiest person! 💕</p>
-    <div class="date-badge">💌 Reserve Saturday, 08th Aug 2026 I have something special planned just for you 🌹</div>
+    <div class="date-badge" id="final-date-badge">💌 Reserve Saturday, 08th Aug 2026 I have something special planned just for you 🌹</div>
     <p class="cant-wait">Can't wait for our date! 🌸</p>
+
+    <p class="know-more-link" id="know-more-link" onclick="revealSecretMessage()">Wait, there's something else... 💌 Know more →</p>
+
+    <div id="secret-message" class="secret-message" style="display:none;">
+      Write your special message here. This is just a placeholder — replace it with whatever you want her to read. 💕
+    </div>
   </div>
 
   <audio id="bg-music" loop autoplay muted>
     <source src="beabadoobee - Glue Song (Lyrics).mp3" type="audio/mpeg">
   </audio>
   <button id="music-toggle" onclick="toggleMusic()" title="Toggle music">🔊</button>
-
   <script src="script.js"></script>
 </body>
 </html>
