@@ -156,6 +156,107 @@ h1 {
 }
 #music-toggle:hover { transform: scale(1.1); }
 
+/* Date badge (shared by date-page and success-page) */
+.date-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.85);
+  border: 2px solid #ffb3c1;
+  border-radius: 16px;
+  padding: 14px 32px;
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #d63384;
+  margin-top: 16px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 16px rgba(214,51,132,0.2);
+}
+
+/* Page 2: date editing */
+.edit-link {
+  margin-top: 16px;
+  font-size: 0.95rem;
+  color: #e91e8c;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+.edit-link:hover { opacity: 1; }
+
+.date-input {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #d63384;
+  border: 2px solid #ffb3c1;
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-top: 14px;
+  margin-right: 10px;
+  background: rgba(255,255,255,0.85);
+}
+
+.small-btn {
+  background: linear-gradient(135deg, #ff6b9d, #d63384);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  padding: 10px 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(214,51,132,0.35);
+  transition: transform 0.15s;
+}
+.small-btn:hover { transform: scale(1.05); }
+
+.next-btn {
+  background: linear-gradient(135deg, #ff6b9d, #d63384);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-size: 1.2rem;
+  font-weight: 900;
+  font-family: 'Nunito', sans-serif;
+  padding: 14px 38px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(214,51,132,0.4);
+  transition: transform 0.15s, box-shadow 0.15s, opacity 0.2s;
+  letter-spacing: 0.5px;
+}
+.next-btn:hover:not(:disabled) { transform: scale(1.06) translateY(-2px); }
+.next-btn:disabled { opacity: 0.45; cursor: not-allowed; box-shadow: none; }
+
+/* Page 3: activity options */
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.option-btn {
+  background: rgba(255,255,255,0.85);
+  border: 2px solid #ffb3c1;
+  border-radius: 14px;
+  padding: 18px 12px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #d63384;
+  cursor: pointer;
+  transition: transform 0.15s, background 0.2s, border-color 0.2s, color 0.2s;
+}
+.option-btn:hover { transform: scale(1.03); }
+.option-btn.selected {
+  background: linear-gradient(135deg, #ff6b9d, #d63384);
+  border-color: #d63384;
+  color: white;
+  transform: scale(1.03);
+}
+
 /* Success page */
 #success-page {
   display: none;
@@ -190,24 +291,36 @@ h1 {
   margin-top: 18px;
 }
 
-.date-badge {
-  display: inline-block;
-  background: rgba(255,255,255,0.85);
-  border: 2px solid #ffb3c1;
-  border-radius: 16px;
-  padding: 14px 32px;
-  font-size: 1.25rem;
-  font-weight: 900;
-  color: #d63384;
-  margin-top: 16px;
-  backdrop-filter: blur(6px);
-  box-shadow: 0 4px 16px rgba(214,51,132,0.2);
-}
-
 .cant-wait {
   font-size: 1rem;
   color: #e91e8c;
   font-weight: 700;
   margin-top: 10px;
   opacity: 0.85;
+}
+
+.know-more-link {
+  margin-top: 22px;
+  font-size: 1rem;
+  color: #d63384;
+  font-weight: 800;
+  text-decoration: underline;
+  cursor: pointer;
+  opacity: 0.9;
+  transition: opacity 0.2s;
+}
+.know-more-link:hover { opacity: 1; }
+
+.secret-message {
+  margin-top: 18px;
+  background: rgba(255,255,255,0.85);
+  border: 2px solid #ffb3c1;
+  border-radius: 16px;
+  padding: 18px 22px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #d63384;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 16px rgba(214,51,132,0.2);
+  animation: popIn 0.5s cubic-bezier(.34,1.56,.64,1);
 }
